@@ -34,7 +34,7 @@ body {
 }
 
 .phone-screen {
-    background: #ede3e3;
+    background: #000000;
     border-radius: 32px;
     overflow: hidden;
 
@@ -83,7 +83,7 @@ body {
     width: 100%;
     aspect-ratio: 4 / 5;
 
-    background-color: #eee;
+    background-color: #000000;
 
     cursor: pointer;
 }
@@ -112,7 +112,7 @@ body {
     height: 100%;
 
     border-radius: 50%;
-    border: 2px solid #fffbfb;
+    border: 2px solid #000000;
 
     object-fit: cover;
 }
@@ -207,20 +207,20 @@ body {
     padding: 0 16px 12px 16px;
 
     font-size: 13px;
-    color: #e0e5ec;
+    color: #000000;
 }
 
 .likes {
-    color: #e8ebef;
+    color: #000000;
 }
 
 .likes strong {
-    color: #e9eef6;
+    color: #000000;
 }
 
 /* Botão Salvar */
 .bookmark-btn.bookmarked {
-    color: #ffffff;
+    color: #000000;
 }
 
 .bookmark-btn.bookmarked svg {
