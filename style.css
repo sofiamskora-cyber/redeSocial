@@ -34,7 +34,7 @@ body {
 }
 
 .phone-screen {
-    background: #000000;
+    background: #fffcfc;
     border-radius: 32px;
     overflow: hidden;
 
@@ -68,12 +68,12 @@ body {
 .username {
     font-weight: 600;
     font-size: 14px;
-    color: #0e0c0c;
+    color: #fff7f7;
 }
 
 .more-options {
     cursor: pointer;
-    color: #0e1012;
+    color: #fcfeff;
 }
 
 /* Mídia / Foto */
@@ -83,7 +83,7 @@ body {
     width: 100%;
     aspect-ratio: 4 / 5;
 
-    background-color: #000000;
+    background-color: #fffbfb;
 
     cursor: pointer;
 }
@@ -112,7 +112,7 @@ body {
     height: 100%;
 
     border-radius: 50%;
-    border: 2px solid #000000;
+    border: 2px solid #fff7f7;
 
     object-fit: cover;
 }
@@ -165,7 +165,7 @@ body {
     font-size: 13px;
     font-weight: 600;
 
-    color: #000000;
+    color: #ff0000;
 
     cursor: pointer;
 
@@ -211,16 +211,16 @@ body {
 }
 
 .likes {
-    color: #000000;
+    color: #fffafa;
 }
 
 .likes strong {
-    color: #000000;
+    color: #ff0000;
 }
 
 /* Botão Salvar */
 .bookmark-btn.bookmarked {
-    color: #000000;
+    color: #ffffff;
 }
 
 .bookmark-btn.bookmarked svg {
