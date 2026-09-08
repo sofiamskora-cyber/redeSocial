@@ -1,95 +1,167 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+    // Elementos
     const likeBtn = document.querySelector(".like-btn");
+    const likesCountSpan = document.querySelector(".likes-count");
     const postMedia = document.querySelector(".post-media");
-    if(likeBtn) return;
-
-    const likesCountSpan = likeBtn.querySelector("likes-count");
     const bookmarkBtn = document.querySelector(".bookmark-btn");
-    
-    let isLike = false;
-    let baseLikes = 0;
 
-    if (likesCountSpan) {
-        likesCountSpan.textContent = "0";
-    }
-    
-    //números grandes
+    // Se o botão de curtida não existir, encerra
+    if (!likeBtn) return;
 
-    function formatLikes (num){
-        if(num >=1000){
-            return (num/1000).toFixed(1)+"K";
+    // =========================
+    // CONFIGURAÇÃO DAS CURTIDAS
+    // =========================
+
+    let baseLikes = 1200;
+    let isLiked = false;
+
+    // =========================
+    // FORMATA O NÚMERO
+    // =========================
+
+    function formatLikes(num) {
+
+        if (num >= 1000) {
+            return (num / 1000).toFixed(1) + "K";
         }
+
         return num.toString();
     }
 
-    function addLike(){
-        baseLikes++;
-        isLike = true;
-        likeBtn.classList.add("liked");
+    // =========================
+    // ATUALIZA O CONTADOR
+    // =========================
 
-        if(likesCountSpan){
+    function updateLikes() {
+
+        if (likesCountSpan) {
             likesCountSpan.textContent = formatLikes(baseLikes);
         }
     }
-       
 
-    // Efeito visual de animação (bounce) no coração[cite: 1]
-    const svg = likeBtn.querySelector("svg");
-    if (svg) {
-      svg.style.transform = "scale(1.4)";
-      setTimeout(() => {
-        svg.style.transform = "scale(1)";
-      }, 150);
-    }
-  }
+    // =========================
+    // ANIMAÇÃO DO CORAÇÃO
+    // =========================
 
-  // Evento de clique no BOTÃO DE CORAÇÃO (Curte ou Descurte)
-  likeBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
+    function animateHeart() {
 
-    if (isLiked) {
-      // Se já estava curtido, descurte (-1)
-      isLiked = false;
-      baseLikes = Math.max(0, baseLikes - 1);
-      likeBtn.classList.remove("liked");
-      if (likesCountSpan) {
-        likesCountSpan.textContent = formatLikes(baseLikes);
-      }
-    } else {
-      // Se não estava curtido, adiciona curtida
-      addLike();
-    }
-  });
+        const svg = likeBtn.querySelector("svg");
 
-  // Evento de clique na IMAGEM PRINCIPAL (Sempre aumenta likes)
-  if (postMedia) {
-    postMedia.addEventListener("click", (e) => {
-      e.stopPropagation();
-      addLike();
-    });
-  }
+        if (!svg) return;
 
-  // Evento no botão de SALVAR (Bookmark)[cite: 1]
-  if (bookmarkBtn) {
-    let isBookmarked = false;
-    bookmarkBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      isBookmarked = !isBookmarked;
-      bookmarkBtn.classList.toggle("bookmarked", isBookmarked);
+        svg.style.transform = "scale(1.4)";
 
-      const svg = bookmarkBtn.querySelector("svg");
-      if (svg) {
-        svg.style.transform = "scale(1.2)";
         setTimeout(() => {
-          svg.style.transform = "scale(1)";
+            svg.style.transform = "scale(1)";
         }, 150);
-      }
+    }
+
+    // =========================
+    // ADICIONAR CURTIDA
+    // =========================
+
+    function addLike() {
+
+        // Evita curtidas duplicadas
+        if (isLiked) return;
+
+        baseLikes++;
+        isLiked = true;
+
+        likeBtn.classList.add("liked");
+
+        updateLikes();
+        animateHeart();
+    }
+
+    // =========================
+    // REMOVER CURTIDA
+    // =========================
+
+    function removeLike() {
+
+        // Se não estiver curtido, não faz nada
+        if (!isLiked) return;
+
+        baseLikes--;
+        isLiked = false;
+
+        likeBtn.classList.remove("liked");
+
+        updateLikes();
+        animateHeart();
+    }
+
+    // =========================
+    // CLIQUE NO CORAÇÃO
+    // =========================
+
+    likeBtn.addEventListener("click", (event) => {
+
+        event.stopPropagation();
+
+        if (isLiked) {
+            removeLike();
+        } else {
+            addLike();
+        }
     });
-  }
+
+    // =========================
+    // CLIQUE NA FOTO
+    // =========================
+
+    if (postMedia) {
+
+        postMedia.addEventListener("click", (event) => {
+
+            event.stopPropagation();
+
+            // Clicar na foto dá curtida
+            // somente se ainda não estiver curtido
+            if (!isLiked) {
+                addLike();
+            }
+        });
+    }
+
+    // =========================
+    // BOTÃO DE SALVAR
+    // =========================
+
+    if (bookmarkBtn) {
+
+        let isBookmarked = false;
+
+        bookmarkBtn.addEventListener("click", (event) => {
+
+            event.stopPropagation();
+
+            isBookmarked = !isBookmarked;
+
+            bookmarkBtn.classList.toggle(
+                "bookmarked",
+                isBookmarked
+            );
+
+            const svg = bookmarkBtn.querySelector("svg");
+
+            if (svg) {
+
+                svg.style.transform = "scale(1.2)";
+
+                setTimeout(() => {
+                    svg.style.transform = "scale(1)";
+                }, 150);
+            }
+        });
+    }
+
+    // =========================
+    // INICIALIZAÇÃO
+    // =========================
+
+    updateLikes();
+
 });
-
-
-
-
-
-})
